@@ -1,19 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Museu da Mandioca da Amazônia</title>
-</head>
-<style>
-    #banner {
-        background-size: cover;
-        width: 100%;
-        height: 97vh;
-    }
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
 
-</style>
+        #banner-desktop {
+            display: block;
+            width: 100%;
+            height: 100vh;
+            object-fit: cover;
+        }
+
+        #banner-mobile {
+            display: none;
+            width: 100%;
+            height: 100vh;
+            object-fit: cover;
+        }
+
+        @media (max-width: 600px) {
+            #banner-desktop {
+                display: none;
+            }
+
+            #banner-mobile {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
 <body>
-    <img id="banner" src="index.jpg" height="100%" width="100%" alt="site em construção">
+    <img id="banner-desktop" src="banner-desktop.jpg" alt="site em construção">
+    <img id="banner-mobile" src="banner-mobile.jpg" alt="site em construção">
 </body>
+
 </html>
