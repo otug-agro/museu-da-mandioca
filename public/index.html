@@ -1,47 +1,208 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Museu da Mandioca da Amazônia</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Museu da Mandioca</title>
 
-        #banner-desktop {
-            display: block;
-            width: 100%;
-            height: 100vh;
-            object-fit: cover;
-        }
+  <style>
+    :root {
+      --verde: #2e7d32;
+      --marrom: #6d4c41;
+      --bege: #f5f5dc;
+    }
 
-        #banner-mobile {
-            display: none;
-            width: 100%;
-            height: 100vh;
-            object-fit: cover;
-        }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bege);
+    }
 
-        @media (max-width: 600px) {
-            #banner-desktop {
-                display: none;
-            }
+    header {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px;
+      background: white;
+      align-items: center;
+    }
 
-            #banner-mobile {
-                display: block;
-            }
-        }
-    </style>
+    header img {
+      height: 50px;
+    }
+
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: var(--verde);
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    h2 {
+      color: var(--verde);
+    }
+
+    /* HERO */
+    .hero img {
+      width: 100%;
+      display: block;
+    }
+
+    /* GALERIA */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 10px;
+    }
+
+    .grid img {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    /* FORM */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    input, textarea {
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background: var(--verde);
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #222;
+      color: white;
+      margin-top: 40px;
+    }
+
+    iframe {
+      border-radius: 8px;
+      border: none;
+    }
+  </style>
 </head>
 
 <body>
-    <img id="banner-desktop" src="banner-desktop.jpg" alt="site em construção">
-    <img id="banner-mobile" src="banner-mobile.jpg" alt="site em construção">
-</body>
 
+<!-- HEADER -->
+<header>
+  <img src="logo.png" alt="Museu da Mandioca">
+  <nav>
+    <a href="#blog">Notícias</a>
+    <a href="#visite">Visite</a>
+    <a href="#contato">Contato</a>
+  </nav>
+</header>
+
+<!-- HERO RESPONSIVO -->
+<section class="hero">
+  <picture>
+    <source media="(max-width: 768px)" srcset="banner-mobile.jpg">
+    <img src="banner-desktop.jpg" alt="Museu da Mandioca">
+  </picture>
+</section>
+
+<!-- SOBRE -->
+<section class="container">
+  <h2>Sobre o Museu</h2>
+  <p>
+    O Museu da Mandioca valoriza a cultura amazônica, destacando a importância
+    desse alimento na história e na vida da população local.
+  </p>
+</section>
+
+<!-- INSTAGRAM -->
+<section class="container">
+  <h2>Instagram</h2>
+
+  <iframe
+    src="https://snapwidget.com/embed/XXXXX"
+    width="100%"
+    height="400">
+  </iframe>
+</section>
+
+<!-- BLOG -->
+<section class="container" id="blog">
+  <h2>Notícias</h2>
+
+  <div id="posts"></div>
+</section>
+
+<!-- MAPA -->
+<section class="container" id="visite">
+  <h2>Localização</h2>
+
+  <iframe
+    src="https://www.google.com/maps?q=Belem+PA&output=embed"
+    width="100%"
+    height="300">
+  </iframe>
+</section>
+
+<!-- CONTATO -->
+<section class="container" id="contato">
+  <h2>Agendamento de Visitas</h2>
+
+  <form name="contato" method="POST" data-netlify="true">
+    <input type="hidden" name="form-name" value="contato">
+
+    <input type="text" name="nome" placeholder="Seu nome" required>
+    <input type="email" name="email" placeholder="Seu email" required>
+    <textarea name="mensagem" placeholder="Informe a data desejada"></textarea>
+
+    <button type="submit">Enviar</button>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Museu da Mandioca © 2026</p>
+</footer>
+
+<!-- SCRIPT BLOG -->
+<script>
+  const posts = [
+    {
+      titulo: "A mandioca na cultura amazônica",
+      resumo: "Base alimentar e símbolo cultural da região."
+    },
+    {
+      titulo: "Nova exposição",
+      resumo: "Conheça a nova área interativa do museu."
+    }
+  ];
+
+  const container = document.getElementById("posts");
+
+  posts.forEach(p => {
+    const div = document.createElement("div");
+    div.innerHTML = `
+      <h3>${p.titulo}</h3>
+      <p>${p.resumo}</p>
+      <hr>
+    `;
+    container.appendChild(div);
+  });
+</script>
+
+</body>
 </html>
