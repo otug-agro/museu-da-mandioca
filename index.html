@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Museu da Mandioca</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #F5F5DC;
+      --bg-off:    #edecd2;
+      --forest:    #2d3a30;
+      --forest-lt: #3e5040;
+      --ink:       #2d3a30;
+      --ink-muted: rgba(45,58,48,.52);
+      --border:    rgba(45,58,48,.18);
+      --title:     'Libre Baskerville', Georgia, serif;
+      --body:      'Lora', Georgia, serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--body);
+      font-weight: 400;
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--forest); border-radius: 2px; }
+
+    /* ── HEADER ─────────────────────────────────── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 22px 40px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      background: var(--forest);
+      box-shadow: 0 2px 24px rgba(45,58,48,.22);
+      transition: padding .4s;
+    }
+    header.compact { padding: 12px 40px; }
+
+    .logo-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .logo-icon { width: 44px; height: 44px; opacity: .92; }
+
+    .logo-title {
+      font-family: var(--title);
+      font-size: clamp(1.1rem, 3vw, 1.7rem);
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--bg);
+    }
+    .logo-sub {
+      font-family: var(--body);
+      font-size: .6rem;
+      letter-spacing: .32em;
+      text-transform: uppercase;
+      color: rgba(245,245,220,.5);
+      font-style: italic;
+    }
+
+    nav { display: flex; gap: 36px; }
+    nav a {
+      font-family: var(--body);
+      font-size: .72rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: rgba(245,245,220,.7);
+      text-decoration: none;
+      transition: color .25s;
+      position: relative;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1px;
+      background: var(--bg);
+      transition: width .3s;
+    }
+    nav a:hover { color: var(--bg); }
+    nav a:hover::after { width: 100%; }
+
+    /* ── HERO ───────────────────────────────────── */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 90vh;
+      min-height: 480px;
+      overflow: hidden;
+      background: var(--forest);
+    }
+    .hero .yt-wrap {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    .hero .yt-wrap iframe {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 177.78vh;
+      height: 56.25vw;
+      min-width: 100%;
+      min-height: 100%;
+      transform: translate(-50%, -50%);
+      border: none;
+      pointer-events: none;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(45,58,48,.45) 0%,
+        rgba(45,58,48,.15) 40%,
+        rgba(45,58,48,.6) 80%,
+        rgba(45,58,48,.94) 100%
+      );
+      z-index: 2;
+    }
+    .hero-caption {
+      position: absolute;
+      bottom: 8%; left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      text-align: center;
+      width: 90%; max-width: 680px;
+      animation: fadeUp 1.4s .3s both;
+    }
+    .hero-caption h1 {
+      font-family: var(--title);
+      font-size: clamp(2.4rem, 6vw, 5rem);
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: .02em;
+      color: var(--bg);
+      text-shadow: 0 2px 40px rgba(45,58,48,.5);
+    }
+    .hero-caption h1 em {
+      font-style: italic;
+      font-weight: 400;
+      color: rgba(245,245,220,.82);
+    }
+    .hero-caption p {
+      margin-top: 14px;
+      font-family: var(--body);
+      font-size: .82rem;
+      font-style: italic;
+      letter-spacing: .12em;
+      color: rgba(245,245,220,.7);
+    }
+    .scroll-hint {
+      position: absolute;
+      bottom: 32px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      animation: fadeIn 2s 1.2s both;
+    }
+    .scroll-hint span {
+      font-family: var(--body);
+      font-size: .58rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: rgba(245,245,220,.6);
+    }
+    .scroll-line {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, var(--bg), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    /* ── DIVIDER ────────────────────────────────── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 0 60px;
+      margin: 80px 0 50px;
+    }
+    .divider-line { flex: 1; height: 1px; background: var(--border); }
+    .divider-diamond {
+      width: 8px; height: 8px;
+      border: 1px solid var(--forest);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+
+    /* ── SECTION HEADING ────────────────────────── */
+    .section-heading {
+      text-align: center;
+      margin-bottom: 56px;
+      padding: 0 20px;
+    }
+    .section-heading .eyebrow {
+      font-family: var(--body);
+      font-size: .62rem;
+      letter-spacing: .35em;
+      text-transform: uppercase;
+      color: var(--forest-lt);
+      margin-bottom: 12px;
+      display: block;
+      font-style: italic;
+    }
+    .section-heading h2 {
+      font-family: var(--title);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      letter-spacing: .01em;
+      color: var(--ink);
+    }
+    .section-heading h2 em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--forest-lt);
+    }
+
+    /* ── BLOG / PUBLICAÇÕES ─────────────────────── */
+    #publicacoes { padding: 0 0 100px; }
+
+    .posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    @media (max-width: 900px)  { .posts-grid { grid-template-columns: 1fr; } }
+    @media (min-width: 900px) and (max-width: 1100px) {
+      .posts-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .post-card {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      background: var(--bg-off);
+    }
+    .post-card .thumb {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+      transition: transform .7s cubic-bezier(.25,.46,.45,.94), filter .5s;
+      filter: brightness(.8) saturate(.75);
+    }
+    .post-card:hover .thumb {
+      transform: scale(1.06);
+      filter: brightness(.55) saturate(.5);
+    }
+    .post-card .card-body {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 28px 24px 24px;
+      background: linear-gradient(to top, rgba(45,58,48,.96) 50%, transparent);
+      transform: translateY(6px);
+      transition: transform .4s;
+    }
+    .post-card:hover .card-body { transform: translateY(0); }
+    .post-card .tag {
+      font-family: var(--body);
+      font-size: .58rem;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: rgba(245,245,220,.65);
+      margin-bottom: 8px;
+      display: block;
+      font-style: italic;
+    }
+    .post-card h3 {
+      font-family: var(--title);
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--bg);
+      margin-bottom: 8px;
+    }
+    .post-card p {
+      font-family: var(--body);
+      font-size: .8rem;
+      line-height: 1.7;
+      color: rgba(245,245,220,.65);
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .4s, opacity .4s;
+      opacity: 0;
+    }
+    .post-card:hover p { max-height: 80px; opacity: 1; }
+
+    /* ── PARCEIROS ──────────────────────────────── */
+    #parceiros {
+      padding: 50px 0;
+      overflow: hidden;
+      background: var(--forest);
+    }
+    .partners-track {
+      display: flex;
+      gap: 70px;
+      align-items: center;
+      animation: scrollLeft 28s linear infinite;
+      width: max-content;
+    }
+    #parceiros:hover .partners-track { animation-play-state: paused; }
+    .partner-logo {
+      opacity: .45;
+      flex-shrink: 0;
+      user-select: none;
+      font-family: var(--title);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--bg);
+      white-space: nowrap;
+      transition: opacity .3s;
+    }
+    .partner-logo:hover { opacity: .9; }
+
+    /* ── MAPA ───────────────────────────────────── */
+    #localizacao { padding: 0 0 100px; }
+    .map-container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .map-wrap {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .map-wrap iframe {
+      width: 100%;
+      height: 480px;
+      border: none;
+      display: block;
+      transition: filter .5s;
+    }
+    .map-badge {
+      position: absolute;
+      top: 24px; left: 24px;
+      background: var(--forest);
+      border: 1px solid rgba(245,245,220,.15);
+      padding: 14px 20px;
+      pointer-events: none;
+      z-index: 10;
+    }
+    .map-badge .b-label {
+      font-family: var(--body);
+      font-size: .58rem;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: rgba(245,245,220,.55);
+      font-style: italic;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .map-badge .b-name {
+      font-family: var(--title);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--bg);
+    }
+
+    /* ── AGENDE ─────────────────────────────────── */
+    #agende { padding: 0 0 120px; }
+
+    .agende-centered {
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 0 40px;
+      text-align: center;
+    }
+
+    .agende-centered h3 {
+      font-family: var(--title);
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      line-height: 1.3;
+      color: var(--ink);
+    }
+    .agende-centered h3 em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--forest-lt);
+    }
+    .agende-centered p {
+      font-family: var(--body);
+      font-size: .88rem;
+      line-height: 1.8;
+      color: var(--ink-muted);
+      margin-bottom: 24px;
+    }
+    .agende-centered .info-row {
+      justify-content: center;
+    }
+    .agende-centered .contact-btns {
+      align-items: center;
+      margin-top: 36px;
+    }
+
+    @media (max-width: 600px) {
+      .agende-centered { padding: 0 24px; }
+    }
+
+    .info-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+      align-items: flex-start;
+    }
+    .info-row .dot {
+      width: 6px; height: 6px;
+      background: var(--forest);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 8px;
+    }
+    .info-row span {
+      font-family: var(--body);
+      font-size: .84rem;
+      color: var(--ink-muted);
+      line-height: 1.6;
+    }
+
+    .contact-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 30px;
+    }
+    .btn-wpp {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 22px;
+      background: transparent;
+      border: 1px solid #25d366;
+      color: #1a9e4f;
+      text-decoration: none;
+      font-family: var(--body);
+      font-size: .78rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      transition: background .3s, color .3s;
+    }
+    .btn-wpp:hover { background: #25d366; color: #fff; }
+
+    .btn-wpp--large {
+      padding: 18px 40px;
+      font-size: .9rem;
+      letter-spacing: .18em;
+      gap: 14px;
+      border-width: 2px;
+    }
+
+    .btn-email {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 22px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--ink-muted);
+      text-decoration: none;
+      font-family: var(--body);
+      font-size: .78rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      transition: border-color .3s, color .3s;
+    }
+    .btn-email:hover { border-color: var(--forest); color: var(--forest); }
+
+    /* ── FOOTER ─────────────────────────────────── */
+    footer {
+      background: var(--forest);
+      padding: 60px 60px 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 40px;
+    }
+    @media (max-width: 700px) {
+      footer { grid-template-columns: 1fr; padding: 40px 24px; text-align: center; }
+    }
+    .footer-brand .logo-title { font-size: 1rem; color: var(--bg); }
+    .footer-brand .logo-sub { margin-top: 4px; }
+    .footer-col h4 {
+      font-family: var(--body);
+      font-size: .6rem;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      font-style: italic;
+      color: rgba(245,245,220,.45);
+      margin-bottom: 16px;
+    }
+    .footer-col p,
+    .footer-col a {
+      display: block;
+      font-family: var(--body);
+      font-size: .82rem;
+      color: rgba(245,245,220,.55);
+      text-decoration: none;
+      margin-bottom: 8px;
+      line-height: 1.6;
+      transition: color .25s;
+    }
+    .footer-col a:hover { color: var(--bg); }
+
+    .footer-bottom {
+      text-align: center;
+      padding: 22px 40px;
+      background: var(--forest);
+      border-top: 1px solid rgba(245,245,220,.1);
+      font-family: var(--body);
+      font-size: .65rem;
+      letter-spacing: .18em;
+      color: rgba(245,245,220,.35);
+      text-transform: uppercase;
+    }
+
+    /* ── ANIMAÇÕES ──────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateX(-50%) translateY(30px); }
+      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 1; transform: scaleY(1); }
+      50% { opacity: .4; transform: scaleY(.7); }
+    }
+    @keyframes scrollLeft {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* Reveal ao rolar */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .8s cubic-bezier(.25,.46,.45,.94),
+                  transform .8s cubic-bezier(.25,.46,.45,.94);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 600px) {
+      header { padding: 18px 20px 14px; }
+      header.compact { padding: 12px 20px; }
+      nav { gap: 20px; }
+      nav a { font-size: .62rem; }
+      .hero { height: 100svh; }
+      .divider { padding: 0 24px; margin: 60px 0 36px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ HEADER ══════════════════════════════════════════ -->
+<header id="header">
+  <div class="logo-wrap">
+    <svg class="logo-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="22" cy="22" rx="20" ry="20" stroke="#F5F5DC" stroke-width="1"/>
+      <path d="M22 8 C22 8 14 16 14 24 C14 30 17.5 35 22 36 C26.5 35 30 30 30 24 C30 16 22 8 22 8Z"
+            fill="none" stroke="#F5F5DC" stroke-width="1.2"/>
+      <path d="M22 36 L22 14" stroke="#F5F5DC" stroke-width="1" stroke-dasharray="2 2"/>
+      <path d="M22 20 L17 16" stroke="#F5F5DC" stroke-width=".8"/>
+      <path d="M22 24 L17 21" stroke="#F5F5DC" stroke-width=".8"/>
+      <path d="M22 20 L27 16" stroke="#F5F5DC" stroke-width=".8"/>
+      <path d="M22 24 L27 21" stroke="#F5F5DC" stroke-width=".8"/>
+    </svg>
+    <span class="logo-title">Museu da Mandioca</span>
+    <span class="logo-sub">Belém · Pará · Brasil</span>
+  </div>
+  <nav>
+    <a href="#publicacoes">Publicações</a>
+    <a href="#parceiros">Parceiros</a>
+    <a href="#localizacao">Localização</a>
+    <a href="#agende">Agende</a>
+  </nav>
+</header>
+
+<!-- ══ HERO ════════════════════════════════════════════ -->
+<section class="hero">
+  <!--
+    Substitua o src pelo embed do seu vídeo no YouTube:
+    https://www.youtube.com/embed/SEU_VIDEO_ID?autoplay=1&mute=1&loop=1&playlist=SEU_VIDEO_ID&controls=0&rel=0
+  -->
+  <div class="yt-wrap">
+    <iframe
+      src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&loop=1&playlist=dQw4w9WgXcQ&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1"
+      allow="autoplay; encrypted-media"
+      allowfullscreen
+      title="Museu da Mandioca — vídeo de abertura">
+    </iframe>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-caption">
+    <h1>A <em>alma</em> da<br>Amazônia</h1>
+    <p>Cultura · Memória · Identidade</p>
+  </div>
+  <div class="scroll-hint">
+    <span>Explorar</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ══ PUBLICAÇÕES ═════════════════════════════════════ -->
+<section id="publicacoes">
+  <div class="divider reveal">
+    <div class="divider-line"></div>
+    <div class="divider-diamond"></div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="section-heading reveal">
+    <span class="eyebrow">Notícias &amp; Publicações</span>
+    <h2>Em <em>destaque</em></h2>
+  </div>
+
+  <div class="posts-grid">
+    <div class="post-card reveal">
+      <!--
+        Substitua o src pela imagem real do post.
+        Coloque as imagens em: assets/images/blog/post-1.jpg
+      -->
+      <img class="thumb"
+           src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=700&q=70"
+           alt="Mandioca na culinária amazônica">
+      <div class="card-body">
+        <span class="tag">Gastronomia</span>
+        <h3>A mandioca na culinária amazônica</h3>
+        <p>Base alimentar de povos indígenas há milênios, a mandioca é símbolo de resistência e identidade cultural da Amazônia.</p>
+      </div>
+    </div>
+
+    <div class="post-card reveal" style="transition-delay:.1s">
+      <img class="thumb"
+           src="https://images.unsplash.com/photo-1518998053901-5348d3961a04?w=700&q=70"
+           alt="Nova exposição">
+      <div class="card-body">
+        <span class="tag">Exposição</span>
+        <h3>Nova área interativa do museu</h3>
+        <p>Conheça o espaço imersivo que celebra o processo de cultivo e transformação da mandioca em produtos culturais.</p>
+      </div>
+    </div>
+
+    <div class="post-card reveal" style="transition-delay:.2s">
+      <img class="thumb"
+           src="https://images.unsplash.com/photo-1466442929976-97f336a657be?w=700&q=70"
+           alt="Programas educacionais">
+      <div class="card-body">
+        <span class="tag">Educação</span>
+        <h3>Programas educacionais 2026</h3>
+        <p>Novos roteiros pedagógicos para escolas públicas e privadas, conectando história, ciência e gastronomia regional.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PARCEIROS ═══════════════════════════════════════ -->
+<section id="parceiros">
+  <div class="partners-track">
+    <!-- Bloco 1 — logos reais vão em: assets/images/partners/ -->
+    <span class="partner-logo">Governo do Pará</span>
+    <span class="partner-logo">MPEG · Museu Goeldi</span>
+    <span class="partner-logo">UFPA</span>
+    <span class="partner-logo">Sebrae Amazônia</span>
+    <span class="partner-logo">Ministério da Cultura</span>
+    <span class="partner-logo">BASA</span>
+    <span class="partner-logo">Natura &amp; Co.</span>
+    <span class="partner-logo">Fundação Amazônia</span>
+    <!-- Bloco 2 — duplicata para loop contínuo -->
+    <span class="partner-logo">Governo do Pará</span>
+    <span class="partner-logo">MPEG · Museu Goeldi</span>
+    <span class="partner-logo">UFPA</span>
+    <span class="partner-logo">Sebrae Amazônia</span>
+    <span class="partner-logo">Ministério da Cultura</span>
+    <span class="partner-logo">BASA</span>
+    <span class="partner-logo">Natura &amp; Co.</span>
+    <span class="partner-logo">Fundação Amazônia</span>
+  </div>
+</section>
+
+<!-- ══ LOCALIZAÇÃO ═════════════════════════════════════ -->
+<section id="localizacao">
+  <div class="divider reveal">
+    <div class="divider-line"></div>
+    <div class="divider-diamond"></div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="section-heading reveal">
+    <span class="eyebrow">Como nos encontrar</span>
+    <h2><em>Localização</em></h2>
+  </div>
+
+  <div class="map-container reveal">
+    <div class="map-wrap">
+      <iframe
+        src="https://maps.google.com/maps?q=-1.367326,-48.0761962&z=17&ie=UTF8&iwloc=B&output=embed"
+        width="100%"
+        height="480"
+        allowfullscreen
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Localização do Museu da Mandioca da Amazônia">
+      </iframe>
+      <div class="map-badge">
+        <span class="b-label">Endereço</span>
+        <span class="b-name">Museu da Mandioca da Amazônia</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ AGENDE SUA VISITA ═══════════════════════════════ -->
+<section id="agende">
+  <div class="divider reveal">
+    <div class="divider-line"></div>
+    <div class="divider-diamond"></div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="section-heading reveal">
+    <span class="eyebrow">Planeje sua experiência</span>
+    <h2>Agende sua <em>visita</em></h2>
+  </div>
+
+  <div class="agende-centered reveal">
+    <h3>Venha <em>descobrir</em><br>a nossa história</h3>
+    <p>
+      O Museu da Mandioca recebe grupos escolares, turistas e visitantes individuais.
+      Nossa equipe está à disposição para criar uma experiência personalizada.
+    </p>
+    <div class="info-row">
+      <div class="dot"></div>
+      <span>Visitas guiadas para grupos acima de 10 pessoas</span>
+    </div>
+    <div class="info-row">
+      <div class="dot"></div>
+      <span>Estacionamento disponível no local</span>
+    </div>
+
+    <div class="contact-btns">
+      <!-- wa.me aceita número sem formatação: 55 + DDD + número -->
+      <a href="https://wa.me/5591991541093?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20visita%20ao%20Museu%20da%20Mandioca%20da%20Amaz%C3%B4nia."
+         class="btn-wpp btn-wpp--large" target="_blank" rel="noopener">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.852L.054 23.8a.75.75 0 0 0 .92.92l5.948-1.478A11.953 11.953 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.712 9.712 0 0 1-4.947-1.35l-.354-.21-3.664.91.924-3.576-.23-.368A9.713 9.713 0 0 1 2.25 12C2.25 6.615 6.615 2.25 12 2.25S21.75 6.615 21.75 12 17.385 21.75 12 21.75z"/>
+        </svg>
+        Agendar pelo WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══════════════════════════════════════════ -->
+<footer>
+  <div class="footer-brand">
+    <span class="logo-title">Museu da Mandioca</span>
+    <span class="logo-sub">Belém · Pará · Brasil</span>
+  </div>
+  <div class="footer-col">
+    <h4>Visite</h4>
+    <p>Terça a Domingo</p>
+    <p>9h às 17h</p>
+    <a href="#agende">Agendar visita</a>
+    <a href="#localizacao">Como chegar</a>
+  </div>
+  <div class="footer-col">
+    <h4>Contato</h4>
+    <a href="mailto:contato@museudemandioca.com.br">contato@museudemandioca.com.br</a>
+    <a href="https://wa.me/5591991541093" target="_blank" rel="noopener">(91) 99154-1093</a>
+  </div>
+</footer>
+<div class="footer-bottom">
+  © 2026 Museu da Mandioca · Todos os direitos reservados
+</div>
+
+<script>
+  /* ── Header compacto ao rolar ─── */
+  const hdr = document.getElementById('header');
+  window.addEventListener('scroll', () => {
+    hdr.classList.toggle('compact', window.scrollY > 80);
+  }, { passive: true });
+
+  /* ── Reveal ao rolar ─────────────
+     Usa IntersectionObserver quando disponível.
+     Fallback após 1s garante visibilidade mesmo em
+     previews em iframe onde o observer não dispara. */
+  const revealEls = document.querySelectorAll('.reveal');
+
+  function showAll() {
+    revealEls.forEach(el => el.classList.add('visible'));
+  }
+
+  if ('IntersectionObserver' in window) {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
+
+    revealEls.forEach(el => obs.observe(el));
+  } else {
+    showAll();
+  }
+
+  // Fallback: garante que tudo apareça após 1 segundo
+  // (cobre previews isolados onde scroll nunca ocorre)
+  setTimeout(showAll, 1000);
+</script>
+</body>
+</html>
