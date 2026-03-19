@@ -10,27 +10,24 @@ Hospedado via **GitHub Pages** (gratuito, sem servidor necessário).
 ```
 museu-da-mandioca/
 │
-├── index.html                  ← página principal (tudo aqui)
+├── public/
+│   ├── index.html
+│   │
+│   └── assets/
+│       ├── images/
+│       │   ├── logo.png
+│       │   ├── blog/
+│       │   │   ├── post-mandioca-culinaria.jpg
+│       │   │   ├── post-exposicao.jpg
+│       │   │   └── post-educacao.jpg
+│       │   └── partners/
+│       │       ├── governo-para.svg
+│       │       ├── ufpa.svg
+│       │       └── sebrae.svg
+│       └── videos/
+│           └── hero-loop.mp4
 │
-├── assets/
-│   ├── images/
-│   │   ├── logo.png            ← logotipo do museu
-│   │   ├── hero/
-│   │   │   ├── hero-desktop.jpg   ← imagem de fallback se não usar vídeo
-│   │   │   └── hero-mobile.jpg
-│   │   ├── blog/
-│   │   │   ├── post-mandioca-culinaria.jpg
-│   │   │   ├── post-exposicao.jpg
-│   │   │   └── post-educacao.jpg
-│   │   └── partners/
-│   │       ├── governo-para.svg
-│   │       ├── ufpa.svg
-│   │       ├── sebrae.svg
-│   │       └── ... (logos em SVG sempre que possível)
-│   └── videos/
-│       └── hero-loop.mp4       ← opcional: vídeo local em vez de YouTube
-│
-└── README.md                   ← este arquivo
+└── README.md
 ```
 
 ---
