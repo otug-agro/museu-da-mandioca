@@ -8,26 +8,20 @@ Hospedado via **GitHub Pages** (gratuito, sem servidor necessário).
 ## Estrutura do repositório
 
 ```
-museu-da-mandioca/
-│
-├── public/
-│   ├── index.html
-│   │
-│   └── assets/
-│       ├── images/
-│       │   ├── logo.png
-│       │   ├── blog/
-│       │   │   ├── post-mandioca-culinaria.jpg
-│       │   │   ├── post-exposicao.jpg
-│       │   │   └── post-educacao.jpg
-│       │   └── partners/
-│       │       ├── governo-para.svg
-│       │       ├── ufpa.svg
-│       │       └── sebrae.svg
-│       └── videos/
-│           └── hero-loop.mp4
-│
-└── README.md
+public/
+├── index.html
+└── assets/
+    ├── images/
+    │   ├── logo.png
+    │   └── partners/
+    │       ├── governo-para.svg
+    │       └── ufpa.svg
+    ├── blog/
+    │   ├── post-mandioca-culinaria.jpg
+    │   ├── post-exposicao.jpg
+    │   └── post-educacao.jpg
+    └── videos/
+        └── hero-loop.mp4
 ```
 
 ---
