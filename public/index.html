@@ -4,22 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Museu da Mandioca</title>
-
-  <!-- ── FAVICON ────────────────────────────────────────────
-       Coloque o arquivo em: assets/images/favicon.png
-       Para suporte mais amplo, adicione também:
-         favicon.ico       → ícone legado (IE / alguns crawlers)
-         favicon-180.png   → Apple Touch Icon (iOS)
-  ─────────────────────────────────────────────────────────── -->
   <link rel="icon"             type="image/png" href="public/assets/images/favicon.png">
   <link rel="icon"             type="image/x-icon" href="public/assets/images/favicon.ico">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
-
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
       --bg:        #F5F5DC;
       --bg-off:    #edecd2;
@@ -31,9 +21,7 @@
       --title:     'Libre Baskerville', Georgia, serif;
       --body:      'Lora', Georgia, serif;
     }
-
     html { scroll-behavior: smooth; }
-
     body {
       background: var(--bg);
       color: var(--ink);
@@ -42,11 +30,9 @@
       overflow-x: hidden;
       line-height: 1.7;
     }
-
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: var(--forest); border-radius: 2px; }
-
     /* ── HEADER ─────────────────────────────────── */
     header {
       position: fixed;
@@ -62,7 +48,6 @@
       transition: padding .4s;
     }
     header.compact { padding: 12px 40px; }
-
     .logo-wrap {
       display: flex;
       flex-direction: column;
@@ -70,7 +55,6 @@
       gap: 4px;
     }
     .logo-icon { width: auto; height: 132px; opacity: .92; }
-
     .logo-title {
       font-family: var(--forest);
       font-size: clamp(1.1rem, 3vw, 1.7rem);
@@ -87,7 +71,6 @@
       color: rgba(45,58,48,.45);
       font-style: italic;
     }
-
     nav { display: flex; gap: 36px; }
     nav a {
       font-family: var(--body);
@@ -109,7 +92,6 @@
     }
     nav a:hover { color: var(--forest); }
     nav a:hover::after { width: 100%; }
-
     /* ── HERO ───────────────────────────────────── */
     .hero {
       position: relative;
@@ -200,7 +182,6 @@
       background: linear-gradient(to bottom, var(--bg), transparent);
       animation: scrollPulse 2s ease-in-out infinite;
     }
-
     /* ── DIVIDER ────────────────────────────────── */
     .divider {
       display: flex;
@@ -216,7 +197,6 @@
       transform: rotate(45deg);
       flex-shrink: 0;
     }
-
     /* ── SECTION HEADING ────────────────────────── */
     .section-heading {
       text-align: center;
@@ -245,14 +225,12 @@
       font-weight: 400;
       color: var(--forest-lt);
     }
-
     /* ── PARCEIROS ──────────────────────────────── */
     #parceiros {
       padding: 64px 0;
       overflow: hidden;
       background: var(--forest);
     }
-
     .partners-eyebrow {
       text-align: center;
       font-family: var(--body);
@@ -263,13 +241,10 @@
       font-style: italic;
       margin-bottom: 40px;
     }
-
     .partners-track-wrap {
       overflow: hidden;
       position: relative;
     }
-
-    /* fade nas bordas */
     .partners-track-wrap::before,
     .partners-track-wrap::after {
       content: '';
@@ -287,7 +262,6 @@
       right: 0;
       background: linear-gradient(to left, var(--forest), transparent);
     }
-
     .partners-track {
       display: flex;
       gap: 80px;
@@ -297,14 +271,13 @@
       padding: 8px 0;
     }
     #parceiros:hover .partners-track { animation-play-state: paused; }
-
     .partner-logo-img {
       height: 52px;
       width: auto;
       object-fit: contain;
       opacity: .45;
       flex-shrink: 0;
-      filter: brightness(0) invert(1);  /* força as logos para branco */
+      filter: brightness(0) invert(1);
       transition: opacity .35s, filter .35s, transform .35s;
       user-select: none;
       display: block;
@@ -314,7 +287,6 @@
       filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(245,245,220,.35));
       transform: scale(1.06);
     }
-
     /* ── MAPA ───────────────────────────────────── */
     #localizacao { padding: 0 0 100px; }
     .map-container {
@@ -359,17 +331,14 @@
       font-weight: 700;
       color: var(--bg);
     }
-
     /* ── AGENDE ─────────────────────────────────── */
     #agende { padding: 0 0 120px; }
-
     .agende-centered {
       max-width: 620px;
       margin: 0 auto;
       padding: 0 40px;
       text-align: center;
     }
-
     .agende-centered h3 {
       font-family: var(--title);
       font-size: 1.8rem;
@@ -397,11 +366,9 @@
       align-items: center;
       margin-top: 36px;
     }
-
     @media (max-width: 600px) {
       .agende-centered { padding: 0 24px; }
     }
-
     .info-row {
       display: flex;
       gap: 12px;
@@ -421,7 +388,6 @@
       color: var(--ink-muted);
       line-height: 1.6;
     }
-
     .contact-btns {
       display: flex;
       flex-direction: column;
@@ -444,7 +410,6 @@
       transition: background .3s, color .3s;
     }
     .btn-wpp:hover { background: #25d366; color: #fff; }
-
     .btn-wpp--large {
       padding: 18px 40px;
       font-size: .9rem;
@@ -452,7 +417,6 @@
       gap: 14px;
       border-width: 2px;
     }
-
     .btn-email {
       display: flex;
       align-items: center;
@@ -469,7 +433,6 @@
       transition: border-color .3s, color .3s;
     }
     .btn-email:hover { border-color: var(--forest); color: var(--forest); }
-
     /* ── FOOTER ─────────────────────────────────── */
     footer {
       background: var(--forest);
@@ -481,8 +444,6 @@
     @media (max-width: 700px) {
       footer { grid-template-columns: 1fr; padding: 40px 24px; text-align: center; }
     }
-
-    /* ── FOOTER BRAND com logo ──────────────────── */
     .footer-brand {
       display: flex;
       flex-direction: column;
@@ -497,13 +458,12 @@
       width: auto;
       object-fit: contain;
       opacity: .85;
-      filter: brightness(0) invert(1); /* mantém consistência com o header */
+      filter: brightness(0) invert(1);
       display: block;
     }
     .footer-brand .logo-sub {
       margin-top: 2px;
     }
-
     .footer-col h4 {
       font-family: var(--body);
       font-size: .6rem;
@@ -525,7 +485,6 @@
       transition: color .25s;
     }
     .footer-col a:hover { color: var(--bg); }
-
     .footer-bottom {
       text-align: center;
       padding: 22px 40px;
@@ -537,7 +496,6 @@
       color: rgba(245,245,220,.35);
       text-transform: uppercase;
     }
-
     /* ── ANIMAÇÕES ──────────────────────────────── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateX(-50%) translateY(30px); }
@@ -555,8 +513,6 @@
       from { transform: translateX(0); }
       to   { transform: translateX(-50%); }
     }
-
-    /* Reveal ao rolar */
     .reveal {
       opacity: 0;
       transform: translateY(28px);
@@ -564,7 +520,6 @@
                   transform .8s cubic-bezier(.25,.46,.45,.94);
     }
     .reveal.visible { opacity: 1; transform: translateY(0); }
-
     @media (max-width: 600px) {
       header { padding: 18px 20px 14px; }
       header.compact { padding: 12px 20px; }
@@ -581,30 +536,25 @@
 <header id="header">
   <div class="logo-wrap">
     <img class="logo-icon" src="assets/images/logo.png" alt="Museu da Mandioca">
-    </img class>
     <span class="logo-sub">Santa Izabel do Pará · Brasil</span>
   </div>
   <nav>
-    <a href="#parceiros">Parceiros</a>
     <a href="#localizacao">Localização</a>
+    <a href="#parceiros">Parceiros</a>
     <a href="#agende">Agende</a>
   </nav>
 </header>
 
 <!-- ══ HERO ════════════════════════════════════════════ -->
 <section class="hero">
-  <!--
-    Substitua o src pelo embed do seu vídeo no YouTube:
-    https://www.youtube.com/embed/SEU_VIDEO_ID?autoplay=1&mute=1&loop=1&playlist=SEU_VIDEO_ID&controls=0&rel=0
-  -->
   <div class="yt-wrap">
-  <video
-    src="assets/videos/SEU_VIDEO.mp4"
-    autoplay
-    muted
-    loop
-    playsinline>
-  </video>
+    <video
+      src="assets/videos/SEU_VIDEO.mp4"
+      autoplay
+      muted
+      loop
+      playsinline>
+    </video>
   </div>
   <div class="hero-overlay"></div>
   <div class="hero-caption">
@@ -617,34 +567,6 @@
   </div>
 </section>
 
-<!-- ══ PARCEIROS ═══════════════════════════════════════ -->
-<section id="parceiros">
-  <p class="partners-eyebrow">Nossos Parceiros</p>
-
-  <div class="partners-track-wrap">
-    <div class="partners-track">
-
-      <!--
-        Bloco 1 — adicione quantos parceiros precisar.
-        Coloque os arquivos em: assets/images/partners/
-        Suporte a .png, .svg, .webp etc.
-        O filtro CSS já converte todas as logos para branco.
-        Caso precise de cores originais, remova a propriedade
-        `filter` da classe .partner-logo-img no CSS acima.
-      -->
-      <img class="partner-logo-img" src="assets/images/partners/gerfam.png"   alt="GERFAM">
-      <img class="partner-logo-img" src="assets/images/partners/manioca.png"  alt="MANIOCA">
-      <img class="partner-logo-img" src="assets/images/partners/ufpa.png"     alt="UFPA">
-
-      <!-- Bloco 2 — duplicata exata para loop contínuo sem salto -->
-      <img class="partner-logo-img" src="assets/images/partners/gerfam.png"   alt="GERFAM">
-      <img class="partner-logo-img" src="assets/images/partners/manioca.png"  alt="MANIOCA">
-      <img class="partner-logo-img" src="assets/images/partners/ufpa.png"     alt="UFPA">
-
-    </div>
-  </div>
-</section>
-
 <!-- ══ LOCALIZAÇÃO ═════════════════════════════════════ -->
 <section id="localizacao">
   <div class="divider reveal">
@@ -652,12 +574,10 @@
     <div class="divider-diamond"></div>
     <div class="divider-line"></div>
   </div>
-
   <div class="section-heading reveal">
     <span class="eyebrow">Como nos encontrar</span>
     <h2><em>Localização</em></h2>
   </div>
-
   <div class="map-container reveal">
     <div class="map-wrap">
       <iframe
@@ -677,6 +597,22 @@
   </div>
 </section>
 
+<!-- ══ PARCEIROS ═══════════════════════════════════════ -->
+<section id="parceiros">
+  <p class="partners-eyebrow">Nossos Parceiros</p>
+  <div class="partners-track-wrap">
+    <div class="partners-track">
+      <img class="partner-logo-img" src="assets/images/partners/gerfam.png"   alt="GERFAM">
+      <img class="partner-logo-img" src="assets/images/partners/manioca.png"  alt="MANIOCA">
+      <img class="partner-logo-img" src="assets/images/partners/ufpa.png"     alt="UFPA">
+      <!-- Duplicata para loop contínuo sem salto -->
+      <img class="partner-logo-img" src="assets/images/partners/gerfam.png"   alt="GERFAM">
+      <img class="partner-logo-img" src="assets/images/partners/manioca.png"  alt="MANIOCA">
+      <img class="partner-logo-img" src="assets/images/partners/ufpa.png"     alt="UFPA">
+    </div>
+  </div>
+</section>
+
 <!-- ══ AGENDE SUA VISITA ═══════════════════════════════ -->
 <section id="agende">
   <div class="divider reveal">
@@ -684,12 +620,10 @@
     <div class="divider-diamond"></div>
     <div class="divider-line"></div>
   </div>
-
   <div class="section-heading reveal">
     <span class="eyebrow">Planeje sua experiência</span>
     <h2>Agende sua <em>visita</em></h2>
   </div>
-
   <div class="agende-centered reveal">
     <h3>Venha <em>descobrir</em><br>a nossa história</h3>
     <p>
@@ -704,9 +638,7 @@
       <div class="dot"></div>
       <span>Estacionamento disponível no local</span>
     </div>
-
     <div class="contact-btns">
-      <!-- wa.me aceita número sem formatação: 55 + DDD + número -->
       <a href="https://wa.me/5591991541093?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20visita%20ao%20Museu%20da%20Mandioca%20da%20Amaz%C3%B4nia."
          class="btn-wpp btn-wpp--large" target="_blank" rel="noopener">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
@@ -722,13 +654,6 @@
 <!-- ══ FOOTER ══════════════════════════════════════════ -->
 <footer>
   <div class="footer-brand">
-    <!--
-      Logo do museu no rodapé.
-      O filtro CSS já converte a imagem para branco, mantendo
-      consistência visual com o fundo escuro do footer.
-      Caso prefira a logo colorida, remova a classe `footer-logo`
-      do CSS e adicione seu próprio estilo.
-    -->
     <img class="footer-logo" src="assets/images/logo.png" alt="Museu da Mandioca">
     <span class="logo-sub">Santa Izabel do Pará · Pará · Brasil</span>
   </div>
@@ -754,16 +679,11 @@
     hdr.classList.toggle('compact', window.scrollY > 80);
   }, { passive: true });
 
-  /* ── Reveal ao rolar ─────────────
-     Usa IntersectionObserver quando disponível.
-     Fallback após 1s garante visibilidade mesmo em
-     previews em iframe onde o observer não dispara. */
+  /* ── Reveal ao rolar ─── */
   const revealEls = document.querySelectorAll('.reveal');
-
   function showAll() {
     revealEls.forEach(el => el.classList.add('visible'));
   }
-
   if ('IntersectionObserver' in window) {
     const obs = new IntersectionObserver((entries) => {
       entries.forEach(e => {
@@ -773,13 +693,10 @@
         }
       });
     }, { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
-
     revealEls.forEach(el => obs.observe(el));
   } else {
     showAll();
   }
-
-  // Fallback: garante que tudo apareça após 1 segundo
   setTimeout(showAll, 1000);
 </script>
 </body>
